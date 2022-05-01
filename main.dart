@@ -1,5 +1,5 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tasks/tarefa.dart';
 
 main () => runApp(const MainApp());
@@ -64,7 +64,7 @@ class _MainAppState extends State<MainApp> {
                     cadastrarElemento();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.black
+                    primary: Colors.black,
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -106,6 +106,7 @@ class _MainAppState extends State<MainApp> {
     return Container(
       margin: const EdgeInsets.all(5),
       child: CheckboxListTile(
+        secondary: Icon(Icons.delete , color: Colors.black),
         title: Text(tarefas[index].tarefa,
         style:TextStyle(
           decoration: tarefas[index].estado ? TextDecoration.lineThrough : TextDecoration.none
@@ -115,6 +116,12 @@ class _MainAppState extends State<MainApp> {
         onChanged: (value){
           setState(() {
             tarefas[index].estado = !tarefas[index].estado;
+            tarefas.sort((a,b) {
+              if(b.estado) {
+                return -1;
+              }
+              return 1;
+            });
           });
         },
         activeColor: Colors.black,
